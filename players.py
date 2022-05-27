@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 players_url = 'https://www.hltv.org/stats/players'
 players_req = requests.get(players_url)
-soup = bs4.BeautifulSoup(players_req.text, 'html.parser')
 
 driver = webdriver.Edge()
 driver.get(players_url)
