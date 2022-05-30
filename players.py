@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from connect import engine
 
 players_url = 'https://www.hltv.org/stats/players'
 players_req = requests.get(players_url)
@@ -25,6 +25,8 @@ def get_players_overview():
     driver.find_element(By.XPATH,
                         value='/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[4]/div/div/a[3]').click()
     players_overview_t = pd.read_html(requests.get(driver.current_url).text)[0]
+
+    players_overview.to_sql('Players_Overview', con=engine)
 
 
 def get_players_flashes():
@@ -73,8 +75,5 @@ def get_players_pistols():
 
 
 get_players_overview()
-get_players_flashes()
-get_players_op_kills()
-get_players_pistols()
 
 driver.quit()
